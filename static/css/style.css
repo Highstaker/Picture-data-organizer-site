@@ -13,6 +13,11 @@ header{
 }
 
 #photo-screen{
+	background: purple; /* For browsers that do not support gradients */
+
+    background: linear-gradient(#00ffc4, purple); /* Standard syntax */
+
+
 	position: fixed;
 	top: 30px;
 	bottom: 20px;

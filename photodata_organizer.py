@@ -9,7 +9,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 1, 0)
+VERSION = (0, 1, 1)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -71,10 +71,13 @@ def extract_data():
 	threads = []
 	for image_url in image_urls:
 		image_filename = path.basename(urlparse(image_url).path)
-		t = Thread(target=urllib.request.urlretrieve,
-							args=(image_url, path.join(TEMP_IMAGES_FOLDER, image_filename)))
-		threads.append(t)
-		t.start()
+		full_path_to_create = path.join(TEMP_IMAGES_FOLDER, image_filename)
+		if not path.isfile(full_path_to_create):
+			# print("Downloading!")#debug
+			t = Thread(target=urllib.request.urlretrieve,
+								args=(image_url, full_path_to_create))
+			threads.append(t)
+			t.start()
 	for t in threads:
 		t.join()
 
@@ -93,6 +96,5 @@ def api_get_data():
 
 if __name__ == '__main__':
 	SOURCE_DATA = extract_data()
-	print(SOURCE_DATA)#debug
+	# print(SOURCE_DATA)#debug
 	application.run(debug=True, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)
-	
