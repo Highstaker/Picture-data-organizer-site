@@ -1,22 +1,21 @@
 from os import path, makedirs, symlink
 import json
 
-import dryscrape
-from bs4 import BeautifulSoup as bs
+import requests
 import urllib.request
 from urllib.parse import urlparse
 from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 1, 4)
+VERSION = (0, 2, 0)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
 HOST_NAME = "127.0.0.1"
 HOST_PORT = 12365
 
-SOURCE_URL = "https://www.nordicfuzzcon.org/Registration/FursuitList"
+SOURCE_URL = "https://www.nordicfuzzcon.org/JavaScript/GetFursuitList?CountryId=0&OrderBy=0&OrderByDirection=0"
 
 TEMP_IMAGES_FOLDER = path.join("/tmp", "img")
 
@@ -31,47 +30,28 @@ def extract_data():
 	data = []
 	makedirs(TEMP_IMAGES_FOLDER, exist_ok=True)
 
-	session = dryscrape.Session()
-	session.visit(SOURCE_URL)
-	response = session.body()
+	response = requests.get(SOURCE_URL,
+							headers={
+								'Referer': 'https://www.nordicfuzzcon.org/Registration/FursuitList',
+								'Host': 'www.nordicfuzzcon.org',
 
-	soup = bs(response, "lxml")
+							})
+	response_content = response.content.decode("utf-8")
 
-	entries = soup.find_all("div", class_="fursuitList__tile")
+	# print("response", response)#debug
 
-	# print(entries)#debug
+	parsed_source = json.loads(response_content)["Data"]["GetFursuits"]
 
-	image_urls = list()
-	for entry in entries:
-		chunk = dict()
-		text_info = entry.find("div", class_='fursuitList__tile__details')
-		for br in text_info.find_all("br"):
-			br.replace_with("\n")
-		# print(text_info.text)#debug
+	for entry in parsed_source:
+		#add imagefilenames
+		entry["ImageFilename"] = path.basename(urlparse(entry["ImagePath"]).path)
 
-		# process text data
-		for line in text_info.text.split("\n"):
-			line_parse = line.split(":", 1)
-			try:
-				chunk[line_parse[0]] = line_parse[1].strip(" \n\r\t")
-			except KeyError:
-				pass
 
-		# store country data
-		country = entry.find("img", class_="fursuitList__tile__flag")["title"]
-		chunk["Country"] = country
-
-		# store respective image filenames
-		image_url = entry.find("img", class_="fursuitList__tile__imageActual")["src"]
-		image_urls.append(image_url)
-		image_filename = path.basename(urlparse(image_url).path)
-		chunk["image_filename"] = image_filename
-
-		data.append(chunk)
+	# print("parsed_source", parsed_source)#debug
 
 	# Download images
 	threads = []
-	for image_url in image_urls:
+	for image_url in (i["ImagePath"] for i in parsed_source):
 		image_filename = path.basename(urlparse(image_url).path)
 		full_path_to_create = path.join(TEMP_IMAGES_FOLDER, image_filename)
 		if not path.isfile(full_path_to_create):
@@ -83,7 +63,7 @@ def extract_data():
 	for t in threads:
 		t.join()
 
-	return data
+	return parsed_source
 
 
 @application.route('/')
@@ -105,4 +85,4 @@ if __name__ == '__main__':
 		except FileExistsError:
 			pass  # do nothing
 	# print(SOURCE_DATA)#debug
-	application.run(debug=True, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)
+	application.run(debug=False, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)

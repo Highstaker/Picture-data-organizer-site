@@ -9,10 +9,11 @@ $(function(){
         index = parseInt(id.slice(pic_id_prefix.length));
         result = "";
 
-        result += "<p>Character name: " + source_data[index]["Fursuit"] + "</p>";
-        result += "<p>Country: " + source_data[index]["Country"] + "</p>";
-        result += "<p>Species: " + source_data[index]["Species"] + "</p>";
-        result += "<p>Wearer: " + source_data[index]["Wearer"] + "</p>";
+        result += "<p>Character name: " + source_data[index]["FursuitNickName"] + "</p>";
+        result += "<p>Country: " + source_data[index]["CountryName"] + "</p>";
+        result += "<p>Species: " + source_data[index]["FursuitSpecies"] + "</p>";
+        result += "<p>Wearer: " + source_data[index]["FursuitWearer"] + "</p>";
+        result += "<p>Gender: " + source_data[index]["FursuitGender"] + "</p>";
 
         return result;
     }
@@ -46,7 +47,7 @@ $(function(){
             var img_container = $('<div>', {
                 class: 'photo-container',
                 id: 'pic-'+i+'-container',
-                style: 'background: url(' + "img/"+source_data[i]["image_filename"] + ");"
+                style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");"
             });
             img_container.appendTo('#photo-screen');
         }
