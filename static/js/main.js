@@ -26,7 +26,7 @@ $(function(){
             success: function(data, status){
                 source_data = data;
                 show_photos();
-                $(".photo").hover(
+                $(".photo-container").hover(
                     function(event){
                         // console.log("entered " + this.id);//debug
                         $("#info-box").css({"visibility": "visible"});
@@ -44,17 +44,23 @@ $(function(){
         console.log(source_data);//debug
         for(var i=0;i<source_data.length;i++)
         {
-            var img = $('<img>', {
-                id: 'pic-'+i,
-                class: 'photo',
-                src: "img/"+source_data[i]["image_filename"]
-            });
+            // var img = $('<img>', {
+            //     id: 'pic-'+i,
+            //     class: 'photo',
+            //     src: "img/"+source_data[i]["image_filename"]
+            // });
 
-            img_container = $('<div>', {
+            // var centering_helper= $('<div>', {
+            //     class: 'centering-helper'
+            // });
+
+            var img_container = $('<div>', {
                 class: 'photo-container',
                 id: 'pic-'+i+'-container',
+                style: 'background: url(' + "img/"+source_data[i]["image_filename"] + ");"
             });
-            img.appendTo(img_container);
+            // centering_helper.appendTo(img_container);
+            // img.appendTo(img_container);
             img_container.appendTo('#photo-screen');
         }
     };//show_photos

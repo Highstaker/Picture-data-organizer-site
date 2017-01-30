@@ -9,7 +9,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 1, 2)
+VERSION = (0, 1, 3)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 

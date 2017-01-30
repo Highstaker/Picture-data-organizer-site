@@ -21,6 +21,8 @@ header{
 	bottom: 20px;
 	overflow-y: scroll;
 	overflow-x: hidden;
+
+	/*text-align: center; */ /*centers the images horizontally*/
 }
 
 #info-box{
@@ -40,9 +42,8 @@ header{
 }
 
 .photo-container{
-	/*align-content: center;*/
-	margin: 0px;
-	padding: 0;
+	display: inline-block;
+
 	float: left;
 	position: relative;
 	width: 150px;
@@ -51,19 +52,41 @@ header{
 	border-style: solid;
 	border-color: rgb(0,255,0);
 	border-width: 3px;
+
+	background-repeat: no-repeat !important;
+	background-position: center center !important;
 }
 
-.photo{
-	display: block;
+/*.centering-helper{
+	display:inline-block;
+	height: 100%;
+	vertical-align: middle;
+}*/
+
+/*bad attempt*/
+/*.photo::before{
+	content: 'h0i!';
+	display:inline-block;
+	height: 100%;
+	vertical-align: middle;
+}*/
+
+/*.photo{*/
+	/*display:inline-block;*/
+	/*vertical-align: middle;*/
+
+	/*display: block;*/
+	/*margin-left: auto;*/
+	/*margin-right: auto;*/
+
 	/*margin: -1px;*/
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	position: absolute;
-}
+
+	/*left: 0;*/
+	/*right: 0;*/
+	/*top: 0;*/
+	/*bottom: 0;*/
+	/*position: absolute;*/
+/*}*/
 
 footer{
 	text-align: right;
