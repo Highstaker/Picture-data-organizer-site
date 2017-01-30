@@ -21,8 +21,6 @@ header{
 	bottom: 20px;
 	overflow-y: scroll;
 	overflow-x: hidden;
-
-	/*text-align: center; */ /*centers the images horizontally*/
 }
 
 #info-box{
@@ -56,37 +54,6 @@ header{
 	background-repeat: no-repeat !important;
 	background-position: center center !important;
 }
-
-/*.centering-helper{
-	display:inline-block;
-	height: 100%;
-	vertical-align: middle;
-}*/
-
-/*bad attempt*/
-/*.photo::before{
-	content: 'h0i!';
-	display:inline-block;
-	height: 100%;
-	vertical-align: middle;
-}*/
-
-/*.photo{*/
-	/*display:inline-block;*/
-	/*vertical-align: middle;*/
-
-	/*display: block;*/
-	/*margin-left: auto;*/
-	/*margin-right: auto;*/
-
-	/*margin: -1px;*/
-
-	/*left: 0;*/
-	/*right: 0;*/
-	/*top: 0;*/
-	/*bottom: 0;*/
-	/*position: absolute;*/
-/*}*/
 
 footer{
 	text-align: right;

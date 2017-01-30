@@ -8,7 +8,6 @@ $(function(){
         //takes the id of a picture and returns full info in HTML for the info box.
         index = parseInt(id.slice(pic_id_prefix.length));
         result = "";
-        // console.log(index);
 
         result += "<p>Character name: " + source_data[index]["Fursuit"] + "</p>";
         result += "<p>Country: " + source_data[index]["Country"] + "</p>";
@@ -44,23 +43,11 @@ $(function(){
         console.log(source_data);//debug
         for(var i=0;i<source_data.length;i++)
         {
-            // var img = $('<img>', {
-            //     id: 'pic-'+i,
-            //     class: 'photo',
-            //     src: "img/"+source_data[i]["image_filename"]
-            // });
-
-            // var centering_helper= $('<div>', {
-            //     class: 'centering-helper'
-            // });
-
             var img_container = $('<div>', {
                 class: 'photo-container',
                 id: 'pic-'+i+'-container',
                 style: 'background: url(' + "img/"+source_data[i]["image_filename"] + ");"
             });
-            // centering_helper.appendTo(img_container);
-            // img.appendTo(img_container);
             img_container.appendTo('#photo-screen');
         }
     };//show_photos
@@ -72,7 +59,6 @@ $(function(){
     	var mouseY = event.pageY;
     	var window_width = $(window).width()
     	var middle = window_width / 2;
-    	// console.log(mouseX + " " + mouseY + " " + window_width + " " + middle);//debug
 
     	if(mouseX < middle)
 	    	{

@@ -1,4 +1,4 @@
-from os import path, makedirs
+from os import path, makedirs, symlink
 import json
 
 import dryscrape
@@ -9,7 +9,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 1, 3)
+VERSION = (0, 1, 4)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -22,7 +22,9 @@ TEMP_IMAGES_FOLDER = path.join("/tmp", "img")
 
 APP_NAME = "fursuiters-organizer"
 
-application = Flask(__name__, static_url_path='', static_folder=path.join(SCRIPT_FOLDER, 'static'))
+STATIC_FOLDER = path.join(SCRIPT_FOLDER, 'static')
+
+application = Flask(__name__, static_url_path='', static_folder=STATIC_FOLDER)
 
 
 def extract_data():
@@ -96,5 +98,11 @@ def api_get_data():
 
 if __name__ == '__main__':
 	SOURCE_DATA = extract_data()
+	# have to put a symlink to static folder
+	if TEMP_IMAGES_FOLDER != path.join(STATIC_FOLDER, "img"):
+		try:
+			symlink(TEMP_IMAGES_FOLDER, path.join(STATIC_FOLDER, "img"), target_is_directory=True)
+		except FileExistsError:
+			pass  # do nothing
 	# print(SOURCE_DATA)#debug
 	application.run(debug=True, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)
