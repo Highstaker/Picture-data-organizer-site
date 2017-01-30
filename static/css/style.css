@@ -7,16 +7,14 @@ header{
 	height: 30px;	
 	width: 100%;	
 
-	background-color: cyan;
+	background-color: blue;
 	border-width: 3px;
 	border-color: #AAAAAA;
 }
 
 #photo-screen{
-	background: purple; /* For browsers that do not support gradients */
-
-    background: linear-gradient(#00ffc4, purple); /* Standard syntax */
-
+	background: purple; 
+    background: linear-gradient(#00ffc4, purple);
 
 	position: fixed;
 	top: 30px;
@@ -30,12 +28,15 @@ header{
 	position: fixed;
 	z-index: 100;
 
+	width: 30vw;
+
 	border-style: solid;
 	border-width: 3px;
 	border-color: #AAAAAA;
 
-	background-color: white;
+	background-color: rgba(255,255,0,0.8);
 
+	font-size: 2vw;
 }
 
 .photo-container{
@@ -46,6 +47,10 @@ header{
 	position: relative;
 	width: 150px;
 	height: 150px;
+
+	border-style: solid;
+	border-color: rgb(0,255,0);
+	border-width: 3px;
 }
 
 .photo{
