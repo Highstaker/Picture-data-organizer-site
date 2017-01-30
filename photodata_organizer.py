@@ -12,7 +12,7 @@ VERSION = (0, 2, 0)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
-HOST_NAME = "127.0.0.1"
+HOST_NAME = "0.0.0.0"
 HOST_PORT = 12365
 
 SOURCE_URL = "https://www.nordicfuzzcon.org/JavaScript/GetFursuitList?CountryId=0&OrderBy=0&OrderByDirection=0"
