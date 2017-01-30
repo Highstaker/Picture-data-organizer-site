@@ -1,0 +1,15 @@
+appdirs==1.4.0
+beautifulsoup4==4.5.3
+click==6.7
+dryscrape==1.0
+Flask==0.12
+itsdangerous==0.24
+Jinja2==2.9.5
+lxml==3.7.2
+MarkupSafe==0.23
+packaging==16.8
+pyparsing==2.1.10
+six==1.10.0
+webkit-server==1.0
+Werkzeug==0.11.15
+xvfbwrapper==0.2.9
