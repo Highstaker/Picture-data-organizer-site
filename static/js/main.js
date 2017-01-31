@@ -9,11 +9,31 @@ $(function(){
         index = parseInt(id.slice(pic_id_prefix.length));
         result = "";
 
+        var gender;
+        switch(source_data[index]["FursuitGender"].toLowerCase()){
+            case "male":
+                gender = '<span style="color: Blue">M</span>';
+                break;
+            case "female":
+                gender = '<span style="color: Red">F</span>';
+                break;
+            default: 
+                gender = '<span style="color: black">???</span>';
+                break;
+        }
+
+        var wearer = source_data[index]["FursuitWearer"]?source_data[index]["FursuitWearer"]:"???";
+        var species = source_data[index]["FursuitSpecies"]?source_data[index]["FursuitSpecies"]:"???";
+        var country = source_data[index]["CountryName"]?"" 
+        + '<img id="country-flag" src="css/empty_onepixel.svg" class="flag flag-' + source_data[index]["CountryCode"].toLowerCase() + '" alt="Czech Republic" />'
+        + '<span class="country-texts">' + source_data[index]["CountryName"] + '</span>'
+        + "":"???";
+
         result += "<p>Character name: " + source_data[index]["FursuitNickName"] + "</p>";
-        result += "<p>Country: " + source_data[index]["CountryName"] + "</p>";
-        result += "<p>Species: " + source_data[index]["FursuitSpecies"] + "</p>";
-        result += "<p>Wearer: " + source_data[index]["FursuitWearer"] + "</p>";
-        result += "<p>Gender: " + source_data[index]["FursuitGender"] + "</p>";
+        result += '<p id="country-info-line"><span class="country-texts">Country: </span>' + country + "</p>";
+        result += "<p>Species: " + species + "</p>";
+        result += "<p>Wearer: " + wearer + "</p>";
+        result += "<p>Gender: " + gender + "</p>";
 
         return result;
     }
