@@ -25,7 +25,7 @@ $(function(){
         var wearer = source_data[index]["FursuitWearer"]?source_data[index]["FursuitWearer"]:"???";
         var species = source_data[index]["FursuitSpecies"]?source_data[index]["FursuitSpecies"]:"???";
         var country = source_data[index]["CountryName"]?"" 
-        + '<img id="country-flag" src="css/empty_onepixel.svg" class="flag flag-' + source_data[index]["CountryCode"].toLowerCase() + '" alt="Czech Republic" />'
+        + '<span id="country-flag" class="flag flag-' + source_data[index]["CountryCode"].toLowerCase() + '"></span>'
         + '<span class="country-texts">' + source_data[index]["CountryName"] + '</span>'
         + "":"???";
 
@@ -62,13 +62,37 @@ $(function(){
 
     var show_photos = function(){
         console.log(source_data);//debug
+
+
+
         for(var i=0;i<source_data.length;i++)
-        {
+        {       
+            var border_color;
+            switch(source_data[i]["FursuitGender"].toLowerCase()){
+            case "male":
+                border_color = 'rgb(0,100,255)';
+                break;
+            case "female":
+                border_color = 'rgb(255,0,100)';
+                break;
+            default: 
+                border_color = 'rgb(40,40,40)';
+                break;
+            }
+
             var img_container = $('<div>', {
                 class: 'photo-container',
                 id: 'pic-'+i+'-container',
-                style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");"
+                style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");" +
+                "border-color:" + border_color + ";"
             });
+
+            var flag_thumbnail = $('<div>', {
+                class: 'flag flag-' + source_data[i]["CountryCode"].toLowerCase() + ' flag-thumbnail'
+
+            });
+
+            flag_thumbnail.appendTo(img_container);
             img_container.appendTo('#photo-screen');
         }
     };//show_photos

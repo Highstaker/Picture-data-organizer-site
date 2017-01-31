@@ -60,11 +60,16 @@ header{
 	height: 150px;
 
 	border-style: solid;
-	border-color: rgb(0,255,0);
 	border-width: 3px;
 
 	background-repeat: no-repeat !important;
 	background-position: center center !important;
+}
+
+.flag-thumbnail{
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 footer{
