@@ -49,12 +49,12 @@ $(function(){
                 $(".photo-container").hover(
                     function(event){
                         // console.log("entered " + this.id);//debug
-                        $("#info-box").css({"visibility": "visible"});
                         $("#info-box").html(get_info(this.id));
+                        $("#info-box").css({"opacity": "1"});
                         },//end enter function
                     function(event){
                         // console.log("leaving " + this.id);//debug
-                        $("#info-box").css({"visibility": "hidden"});
+                        $("#info-box").css({"opacity": "0"});
                         /*end exit function*/});
             }//success
         });//ajax
@@ -62,8 +62,6 @@ $(function(){
 
     var show_photos = function(){
         console.log(source_data);//debug
-
-
 
         for(var i=0;i<source_data.length;i++)
         {       
@@ -102,10 +100,13 @@ $(function(){
     $("#photo-screen").mousemove(function(event){
     	var mouseX = event.pageX;
     	var mouseY = event.pageY;
-    	var window_width = $(window).width()
-    	var middle = window_width / 2;
+        var window_width = $(window).width();
+    	var window_height = $(window).height();
+    	var middleX = window_width / 2;
+        var middleY = window_height / 2;
 
-    	if(mouseX < middle)
+        if(mouseY < middleY){
+    	if(mouseX < middleX)
 	    	{
 	    		$("#info-box").css({"right": "0"});
 	    	}
@@ -113,6 +114,7 @@ $(function(){
 	    	{
 	    		$("#info-box").css({"right": "auto"});
 	    	}
+        }
     });//$("#photo-screen").mousemove
 
 
