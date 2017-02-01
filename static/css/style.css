@@ -15,7 +15,7 @@ header{
 }
 
 #photo-screen{
-	background: purple; 
+	background: purple;
     background: linear-gradient(#00ffc4, purple);
 
 	position: fixed;
@@ -41,6 +41,14 @@ header{
 	font-size: 2vw;
 
 	transition: opacity 0.5s;
+}
+
+.gender-symbol{
+	vertical-align: middle;
+}
+
+.gender-texts{
+	vertical-align: middle;
 }
 
 #country-info-line{

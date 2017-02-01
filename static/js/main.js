@@ -12,10 +12,10 @@ $(function(){
         var gender;
         switch(source_data[index]["FursuitGender"].toLowerCase()){
             case "male":
-                gender = '<span style="color: Blue">M</span>';
+                gender = '<img class ="gender-symbol" src="css/male_symbol.svg" alt="Male"/>';
                 break;
             case "female":
-                gender = '<span style="color: Red">F</span>';
+                gender = '<img class ="gender-symbol" src="css/female_symbol.svg" alt="Female"/>';
                 break;
             default: 
                 gender = '<span style="color: black">???</span>';
@@ -33,7 +33,7 @@ $(function(){
         result += '<p id="country-info-line"><span class="country-texts">Country: </span>' + country + "</p>";
         result += "<p>Species: " + species + "</p>";
         result += "<p>Wearer: " + wearer + "</p>";
-        result += "<p>Gender: " + gender + "</p>";
+        result += '<p><span class="gender-texts">Gender: </span>' + gender + "</p>";
 
         return result;
     }
