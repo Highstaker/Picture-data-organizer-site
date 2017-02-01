@@ -51,10 +51,21 @@ $(function(){
                         // console.log("entered " + this.id);//debug
                         $("#info-box").html(get_info(this.id));
                         $("#info-box").css({"opacity": "1"});
+
+                        $(this).css({"box-shadow": "10px 10px 20px " 
+                            + $(this).css("border-color")
+                            +" inset"
+                            +", -10px -10px 20px " 
+                            + $(this).css("border-color")
+                            +" inset"
+                        });
+
+                            
                         },//end enter function
                     function(event){
                         // console.log("leaving " + this.id);//debug
                         $("#info-box").css({"opacity": "0"});
+                        $(this).css({"box-shadow": "none"});//remove shadow
                         /*end exit function*/});
             }//success
         });//ajax
@@ -74,7 +85,7 @@ $(function(){
                 border_color = 'rgb(255,0,100)';
                 break;
             default: 
-                border_color = 'rgb(40,40,40)';
+                border_color = 'rgb(230,230,230)';
                 break;
             }
 
