@@ -1,5 +1,6 @@
 body{
 	margin: 0;
+	font-family: sans-serif;
 }
 
 header{
@@ -80,6 +81,7 @@ footer{
 	position: fixed;
 	height: 20px;
 	bottom:0%;
-	background-color: #ff0000;
+	background: #ff0000;
+	background: linear-gradient(to right, black, #ff0000);
 }
 
