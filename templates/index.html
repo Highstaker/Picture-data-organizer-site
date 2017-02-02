@@ -8,10 +8,22 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
-<!--TODO: search bar-->
-<!--TODO: filter by countries -->
-<!--TODO: sorting -->
-	<header>Fursuits</header>
+	<!--TODO: search bar-->
+	<!--TODO: filter by countries -->
+	<!--TODO: sorting -->
+	<header>
+		Fursuits
+		<form id="search-form" onsubmit="return false">
+			Search by:
+			<select id="search-by-menu">
+				<option value="FursuitNickName">Character name</option>
+				<option value="FursuitWearer">Wearer name</option>
+			</select>
+			<input type="search" id="search-bar" placeholder="Doesn't work yet!">
+			<input id="search-button" type="submit" value="Search!">
+			<button id="clear-search-button">Clear</button>
+		</form>
+	</header>
 	<div id="photo-screen">
 		<div id="info-box">h0i!</div>
 	</div>

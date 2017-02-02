@@ -14,6 +14,10 @@ header{
 	border-color: #AAAAAA;
 }
 
+#search-form{
+	float: right;
+}
+
 #photo-screen{
 	background: purple;
     background: linear-gradient(#00ffc4, purple);
@@ -76,6 +80,10 @@ header{
 
 	background-repeat: no-repeat !important;
 	background-position: center center !important;
+}
+
+.dimmed-pic{
+	box-shadow: 30px 30px 150px black inset, -30px -30px 150px black inset;
 }
 
 .flag-thumbnail{

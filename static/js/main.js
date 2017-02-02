@@ -2,7 +2,9 @@ $(function(){
     console.log("ready!");
 
     var source_data;
-    var pic_id_prefix = "img-"
+    // indexes to be shown, in order of showing. Will be required for filtering and sorting
+    var shown_indicies = [];
+    const pic_id_prefix = "pic-"
 
     var get_info = function(id){
         //takes the id of a picture and returns full info in HTML for the info box.
@@ -39,33 +41,46 @@ $(function(){
     }
 
     var collect_data = function(){
+        //collects data from server
         $.ajax({
             url: "get_data",
             type: "GET",
             dataType: "Json",
             success: function(data, status){
                 source_data = data;
+                shown_indicies = [];
+                //fill with all
+                for(var i=0; i<data.length;i++){shown_indicies[i]=i;};
                 show_photos();
                 $(".photo-container").hover(
                     function(event){
-                        // console.log("entered " + this.id);//debug
-                        $("#info-box").html(get_info(this.id));
-                        $("#info-box").css({"opacity": "1"});
+                        classes = $(this).attr("class").split(' ');
+                        // console.debug(classes);
+                        // console.debug(classes.indexOf("dimmed-pic"));
 
-                        $(this).css({"box-shadow": "10px 10px 20px " 
-                            + $(this).css("border-color")
-                            +" inset"
-                            +", -10px -10px 20px " 
-                            + $(this).css("border-color")
-                            +" inset"
-                        });
+                        if(classes.indexOf("dimmed-pic") == -1){
+                            //sets what to do when a pic is hovered
+                            $("#info-box").html(get_info(this.id));
+                            $("#info-box").css({"opacity": "1"});
 
+                            $(this).css({"box-shadow": "10px 10px 20px " 
+                                + $(this).css("border-color")
+                                +" inset"
+                                +", -10px -10px 20px " 
+                                + $(this).css("border-color")
+                                +" inset"
+                            });
+                        }//if
                             
                         },//end enter function
                     function(event){
-                        // console.log("leaving " + this.id);//debug
+                        classes = $(this).attr("class").split(' ');
+
+                        //sets what to do when a pic is not hovered over anymore
                         $("#info-box").css({"opacity": "0"});
-                        $(this).css({"box-shadow": "none"});//remove shadow
+                        if(classes.indexOf("dimmed-pic") == -1){
+                            $(this).css({"box-shadow": "none"});//remove shadow
+                        }
                         /*end exit function*/});
             }//success
         });//ajax
@@ -74,9 +89,11 @@ $(function(){
     var show_photos = function(){
         console.log(source_data);//debug
 
-        for(var i=0;i<source_data.length;i++)
+        for(var k=0;k<shown_indicies.length;k++)
         {       
+            var i = shown_indicies[k];
             var border_color;
+
             switch(source_data[i]["FursuitGender"].toLowerCase()){
             case "male":
                 border_color = 'rgb(0,100,255)';
@@ -91,7 +108,7 @@ $(function(){
 
             var img_container = $('<div>', {
                 class: 'photo-container',
-                id: 'pic-'+i+'-container',
+                id: pic_id_prefix+i+'-container',
                 style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");" +
                 "border-color:" + border_color + ";"
             });
@@ -106,9 +123,35 @@ $(function(){
         }
     };//show_photos
 
+    var dim_all_pics = function(){
+        for(var k=0; k<shown_indicies.length; k++)
+        {
+            index = shown_indicies[k];
+            $(".photo-container").addClass("dimmed-pic");
+            $('.photo-container').css('box-shadow', '');//removing inline styling
+        }
+
+    }//dim_all_pics
+
+    var undim_pic = function(id){
+        $("#"+pic_id_prefix+id+"-container").removeClass("dimmed-pic");
+    }//undim_pic
+
+    var undim_all_pics = function(){
+        for(var k=0; k<shown_indicies.length; k++)
+        {
+            index = shown_indicies[k];
+            undim_pic(index);
+        }
+
+    }//undim_all_pics
+
+    /////MAIN/////////
+
     collect_data();//run ajax
 
     $("#photo-screen").mousemove(function(event){
+        //moves infobox so it wouldn't get in a way depending on mouse location
     	var mouseX = event.pageX;
     	var mouseY = event.pageY;
         var window_width = $(window).width();
@@ -128,5 +171,45 @@ $(function(){
         }
     });//$("#photo-screen").mousemove
 
+    //search form behaviour on both Enter and search button click
+    $("#search-form").submit(function(event){
+        console.debug($("#search-bar").val());//debug
+        // $("#search-bar").val("Doesn't work yet!");//debug
+        // console.debug(shown_indicies);//debug
+        // console.debug("search by " + $("#search-by-menu").val());
+        // console.debug("search by " + $("#search-by-menu option:selected").text());
+        var search_by = $("#search-by-menu").val();
+        console.debug("search by " + search_by);
 
-    });//$
+        var found = [];//indicies of found elements
+        for(var k=0;k<shown_indicies.length;k++){
+            index = shown_indicies[k];
+            var source = source_data[index][search_by];
+            if(typeof source != "string"){source ="";}
+
+            if(source.toLowerCase() == $("#search-bar").val().toLowerCase())
+            {
+                found.push(index);
+            }
+        }//for
+        console.debug(found);//debug
+
+        if(found.length > 0)
+        {
+            dim_all_pics();
+            for(var k=0;k<found.length;k++){
+                console.debug(found[k]);
+                undim_pic(found[k]);
+            }
+        }
+
+    });//$("#search-form").submit(function(event
+
+    $("#clear-search-button").click(function(){
+        console.debug("clearing!");
+        undim_all_pics();
+        return false;//prevent repetitive submission. No idea why a BUTTON submits too...
+    });
+
+
+});//$
