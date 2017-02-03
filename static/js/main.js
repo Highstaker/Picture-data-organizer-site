@@ -103,10 +103,10 @@ $(function(){
                             $("#info-box").css({"opacity": "1"});
 
                             $(this).css({"box-shadow": "10px 10px 20px "
-                                + $(this).css("border-color")
+                                + $(this).css("border-top-color")
                                 +" inset"
                                 +", -10px -10px 20px "
-                                + $(this).css("border-color")
+                                + $(this).css("border-top-color")
                                 +" inset"
                             });
                         }//if
