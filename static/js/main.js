@@ -199,11 +199,8 @@ $(function(){
         var search_query = $("#search-bar").val().toLowerCase();
         console.debug("search by " + search_by);
 
-        clear_search();//search in ALL values at all times
-
         var found = [];//indicies of found elements
-        for(var k=0;k<shown_indicies.length;k++){
-            index = shown_indicies[k];
+        for(var index=0;index<source_data.length;index++){
             var source = source_data[index][search_by];
             if(typeof source != "string"){source ="";}
 
@@ -234,8 +231,16 @@ $(function(){
         }
         else
         {
+            //nothing found
             var init_color = $("#search-bar").css("background-color");
+            var init_placeholder = $("#search-bar").attr("placeholder");
             //TODO: blink with red if nothing found
+            $("#search-bar").css({"background-color":"red"});
+            $("#search-bar").attr({"placeholder": "Nothing found!"});
+            setTimeout(
+                function(){$("#search-bar").css({"background-color":init_color});
+                $("#search-bar").attr({"placeholder": init_placeholder});},
+                1000);
         }
 
     });//$("#search-form").submit(function(event
@@ -248,8 +253,6 @@ $(function(){
     },
     function(event){
         $("#info-box").css({"opacity": "0"});
-
     });
-
 
 });//$
