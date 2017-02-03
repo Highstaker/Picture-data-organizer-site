@@ -193,6 +193,7 @@ $(function(){
         // console.debug("search by " + $("#search-by-menu").val());
         // console.debug("search by " + $("#search-by-menu option:selected").text());
         var search_by = $("#search-by-menu").val();
+        var search_query = $("#search-bar").val().toLowerCase();
         console.debug("search by " + search_by);
 
         clear_search();//search in ALL values at all times
@@ -203,9 +204,21 @@ $(function(){
             var source = source_data[index][search_by];
             if(typeof source != "string"){source ="";}
 
-            if(source.toLowerCase() == $("#search-bar").val().toLowerCase())
+            if(search_query == "")
             {
-                found.push(index);
+                if(source == "")
+                {
+                    //if the query is empty, show all entries that have this field empty
+                    found.push(index);
+                }
+            }
+            else
+            {
+                var re_pattern = new RegExp(search_query, 'gi');
+                if(source.toLowerCase().match(re_pattern))
+                {
+                    found.push(index);
+                }
             }
         }//for
         console.debug(found);//debug

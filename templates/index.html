@@ -8,9 +8,9 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
-	<!--TODO: search bar-->
 	<!--TODO: filter by countries -->
 	<!--TODO: sorting -->
+	<!--TODO: Gender checkboxes -->
 	<header>
 		Fursuits
 		<form id="search-form" onsubmit="return false">
@@ -18,8 +18,9 @@
 			<select id="search-by-menu">
 				<option value="FursuitNickName">Character name</option>
 				<option value="FursuitWearer">Wearer name</option>
+				<option value="FursuitSpecies">Species</option>
 			</select>
-			<input type="search" id="search-bar" placeholder="Doesn't work yet!">
+			<input type="search" id="search-bar" placeholder="Search query">
 			<input id="search-button" type="submit" value="Search!">
 			<button id="clear-search-button">Clear</button>
 		</form>
@@ -27,6 +28,11 @@
 	<div id="photo-screen">
 		<div id="info-box">h0i!</div>
 	</div>
-	<footer>Site by Omni H. Sable. <a href="https://github.com/Highstaker/Picture-data-organizer-site" target=_blank">Project repo</a></footer>
+	<!--TODO: Total number counter -->
+	<footer>
+		Site by Omni H. Sable.
+		<a href="https://github.com/Highstaker/Picture-data-organizer-site" target=_blank">Project repo</a>
+		<!--TODO:<span>{{VERSION}}</span>-->
+	</footer>
 </body>
 </html>

@@ -8,7 +8,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 3, 1)
+VERSION = (0, 3, 2)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -68,7 +68,10 @@ def extract_data():
 
 @application.route('/')
 def index():
-	return render_template('index.html')
+	# version = "v." + ".".join(map(str, VERSION))
+	return render_template('index.html',
+						   # context={"VERSION": version}
+						   )
 
 
 @application.route('/get_data')
