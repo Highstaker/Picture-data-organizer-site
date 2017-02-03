@@ -232,15 +232,10 @@ $(function(){
         else
         {
             //nothing found
-            var init_color = $("#search-bar").css("background-color");
-            var init_placeholder = $("#search-bar").attr("placeholder");
             //TODO: blink with red if nothing found
+            $("#search-bar").stop(true,true);
             $("#search-bar").css({"background-color":"red"});
-            $("#search-bar").attr({"placeholder": "Nothing found!"});
-            setTimeout(
-                function(){$("#search-bar").css({"background-color":init_color});
-                $("#search-bar").attr({"placeholder": init_placeholder});},
-                1000);
+            $("#search-bar").animate({"background-color":"#FFFFFF"}, 2000, "linear");
         }
 
     });//$("#search-form").submit(function(event
