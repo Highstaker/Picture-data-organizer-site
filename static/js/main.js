@@ -91,7 +91,7 @@ $(function(){
             flag_thumbnail.appendTo(img_container);
             img_container.appendTo('#photo-screen');
 
-            $(".photo-container").hover(
+            $("#"+pic_id_prefix+i+'-container').hover(
                     function(event){
                         classes = $(this).attr("class").split(' ');
                         // console.debug(classes);
@@ -102,10 +102,10 @@ $(function(){
                             $("#info-box").html(get_info(this.id));
                             $("#info-box").css({"opacity": "1"});
 
-                            $(this).css({"box-shadow": "10px 10px 20px " 
+                            $(this).css({"box-shadow": "10px 10px 20px "
                                 + $(this).css("border-color")
                                 +" inset"
-                                +", -10px -10px 20px " 
+                                +", -10px -10px 20px "
                                 + $(this).css("border-color")
                                 +" inset"
                             });
@@ -228,6 +228,11 @@ $(function(){
             remove_all_pics();
             shown_indicies = found;
             show_photos();
+        }
+        else
+        {
+            var init_color = $("#search-bar").css("background-color");
+            //TODO: blink with red if nothing found
         }
 
     });//$("#search-form").submit(function(event

@@ -18,6 +18,10 @@ header{
 	float: right;
 }
 
+#search-bar{
+	background-color: #FFFFFF;
+}
+
 #photo-screen{
 	background: purple;
     background: linear-gradient(#00ffc4, purple);
