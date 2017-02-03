@@ -1,3 +1,6 @@
+const SEARCH_BAR_HELP = "<p>Input the query you want to send, fully or partially.</p>" +
+"<p>If you want to search for fursuiters that have the selected criteria unfilled, leave the search bar empty.</p>";
+
 $(function(){
     console.log("ready!");
 
@@ -238,6 +241,15 @@ $(function(){
     });//$("#search-form").submit(function(event
 
     $("#clear-search-button").click(clear_search);
+
+    $("#search-bar").hover(function(event){
+        $("#info-box").html(SEARCH_BAR_HELP);
+        $("#info-box").css({"opacity": "1"});
+    },
+    function(event){
+        $("#info-box").css({"opacity": "0"});
+
+    });
 
 
 });//$
