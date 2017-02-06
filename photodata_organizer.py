@@ -8,7 +8,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 4, 1)
+VERSION = (0, 4, 2)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -27,7 +27,6 @@ application = Flask(__name__, static_url_path='', static_folder=STATIC_FOLDER)
 
 
 def extract_data():
-	data = []
 	makedirs(TEMP_IMAGES_FOLDER, exist_ok=True)
 
 	response = requests.get(SOURCE_URL,
@@ -59,12 +58,16 @@ def extract_data():
 	return parsed_source
 
 
+@application.context_processor
+def version_info():
+	"""Runs before template rendering, assigns variables"""
+	version = "v." + ".".join(map(str, VERSION))
+	return dict(VERSION=version)
+
+
 @application.route('/')
 def index():
-	# version = "v." + ".".join(map(str, VERSION))
-	return render_template('index.html',
-						# context={"VERSION": version}
-						)
+	return render_template('index.html')
 
 
 @application.route('/get_data')
