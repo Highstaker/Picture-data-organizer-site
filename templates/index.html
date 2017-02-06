@@ -14,9 +14,6 @@
 	<!--TODO: Gender checkboxes -->
 	<header>
 		Fursuits
-		<select id="country-menu">
-			<option value="all">All countries</option>
-		</select>
 		<form id="search-form" onsubmit="return false">
 			Search by:
 			<select id="search-by-menu">
@@ -28,6 +25,17 @@
 			<input id="search-button" type="submit" value="Search!">
 			<button id="clear-search-button">Clear search!</button>
 		</form>
+		<span id="gender-form">
+			<label for="male-gender-option">M</label>
+			<input class="gender-option" type="checkbox" id="male-gender-option" checked />
+			<label for="female-gender-option">F</label>
+			<input class="gender-option" type="checkbox" id="female-gender-option" checked />
+			<label for="unspecified-gender-option">???</label>
+			<input class="gender-option" type="checkbox" id="unspecified-gender-option" checked />
+		</span>
+		<select id="country-menu">
+			<option value="all" class="country-option">All countries</option>
+		</select>
 	</header>
 	<div id="photo-screen">
 		<div id="info-box">h0i!</div>

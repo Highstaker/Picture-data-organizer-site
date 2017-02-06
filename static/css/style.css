@@ -22,6 +22,10 @@ header{
 	float: right;
 }
 
+#gender-form{
+	float: right;
+}
+
 #search-bar{
 	background-color: #FFFFFF;
 }

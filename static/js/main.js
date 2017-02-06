@@ -209,8 +209,6 @@ $(function(){
         for(var i=0;i<source_data.length;i++){shown_indicies[i]=[i];}
     }
 
- 
-
     /////MAIN/////////
 
     collect_data();//run ajax
@@ -272,7 +270,6 @@ $(function(){
         if(search_query == "")return;
 
         var found = [];//indicies of found elements
-        // for(var index=0;index<source_data.length;index++){
         for(var j=0;j<shown_indicies.length;j++){
             var index = shown_indicies[j];
             var source = source_data[index][search_by];
@@ -300,8 +297,36 @@ $(function(){
 
     };//filter_by_search
 
+    var filter_by_gender = function(event){
+        var males = $("#male-gender-option").is(":checked");
+        var females = $("#female-gender-option").is(":checked");
+        var unspec = $("#unspecified-gender-option").is(":checked");
+
+        var found = [];//indicies of found elements
+        for(var j=0;j<shown_indicies.length;j++){
+            switch(source_data[j]["FursuitGender"])
+            {
+                case "Male":
+                    if(males){
+                        found.push(j);
+                    }
+                    break;
+                case "Female":
+                    if(females){
+                        found.push(j);
+                    }
+                    break;                
+                default:
+                    if(unspec){
+                        found.push(j);
+                    }
+                    break;
+            }//switch
+        }//for
+        shown_indicies = found;
+    }
+
     var clear_search = function(event){
-        console.debug("clearing!");
         $("#search-bar").val("");
         master_filter();
         return false;//prevent repetitive submission. No idea why a BUTTON submits too...
@@ -310,12 +335,14 @@ $(function(){
     var master_filter = function(event){
         remove_all_pics();
         reset_shown_indicies_array();
+        filter_by_gender(event);
         filter_by_country(event);
         filter_by_search(event);
         show_photos();
     };
 
     //setting the master to filter elements
+    $(".gender-option").change(master_filter);
     $("#country-menu").change(master_filter);
     $("#search-form").submit(master_filter);//search form behaviour on both Enter and search button click
     $("#clear-search-button").click(clear_search);
