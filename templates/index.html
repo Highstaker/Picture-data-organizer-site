@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
-	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
+	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script> -->
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </head>
 <body>
@@ -14,6 +14,9 @@
 	<!--TODO: Gender checkboxes -->
 	<header>
 		Fursuits
+		<select id="country-menu">
+			<option value="all">All countries</option>
+		</select>
 		<form id="search-form" onsubmit="return false">
 			Search by:
 			<select id="search-by-menu">
@@ -23,14 +26,13 @@
 			</select>
 			<input type="search" id="search-bar" placeholder="Search query">
 			<input id="search-button" type="submit" value="Search!">
-			<button id="clear-search-button">Clear</button>
+			<button id="clear-search-button">Clear search!</button>
 		</form>
 	</header>
 	<div id="photo-screen">
 		<div id="info-box">h0i!</div>
 	</div>
 	<footer>
-	sdgsg
 	<span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
 	<span id="signature">
 		Site by Omni H. Sable.

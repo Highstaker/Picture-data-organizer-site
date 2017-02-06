@@ -1,5 +1,6 @@
 const SEARCH_BAR_HELP = "<p>Input the query you want to send, fully or partially.</p>" +
-"<p>If you want to search for fursuiters that have the selected criteria unfilled, leave the search bar empty.</p>";
+"<p>If you want to search for fursuiters that have the selected criteria unfilled, type ^$</p>"+
+"<p>If you are familiar with REGEX, you can use it here.</p>";
 
 $(function(){
     console.log("ready!");
@@ -43,6 +44,51 @@ $(function(){
         return result;
     };//get_info
 
+    var set_countries_menu = function() {
+        var arrayInArray = function(arr, value){
+                //checks if a array is in array
+                for(var i=0; i<arr.length; i++){
+                    // console.debug(arr, value, arr==value);
+                    if(value.length == arr[i].length){
+                        var equal = true;
+                        for(var j=0;j<value.length;j++){
+                            if(value[j]!=arr[i][j]){
+                                equal = false;
+                                break;
+                            }
+                        }
+                        if(equal)return true;
+                    }
+                }
+                return false;
+            };
+
+        //initial setup of countries filter menu
+        var unique_countries = [];
+        for(var i=0; i<source_data.length; i++){
+            var country = [source_data[i]["CountryCode"], source_data[i]["CountryName"]];
+            if(!arrayInArray(unique_countries, country)){// not in array
+                unique_countries.push(country);
+                }
+        }//for
+
+        unique_countries.sort(function(a, b){
+            if(a[1]<b[1])return -1;
+            if(a[1]>b[1])return 1;
+            return 0;
+        });
+
+        console.debug(unique_countries);
+
+        $.each(unique_countries, function(key, vall) {
+            $('#country-menu').append($("<option/>", {
+                class: "country-option",
+                value: vall[0], //country code
+                text: vall[1], //country name
+            }));
+        });//each
+    }//set_countries_menu
+
     var collect_data = function(){
         //collects data from server
         $.ajax({
@@ -53,7 +99,8 @@ $(function(){
                 source_data = data;
                 shown_indicies = [];
                 //fill with all
-                for(var i=0; i<data.length;i++){shown_indicies[i]=i;};
+                reset_shown_indicies_array();
+                set_countries_menu();
                 show_photos();
             }//success
         });//ajax
@@ -88,12 +135,12 @@ $(function(){
 
             var flag_thumbnail = $('<div>', {
                 class: 'flag flag-' + source_data[i]["CountryCode"].toLowerCase() + ' flag-thumbnail'
-
             });
 
             flag_thumbnail.appendTo(img_container);
             img_container.appendTo('#photo-screen');
 
+            //setting hover behaviour for images
             $("#"+pic_id_prefix+i+'-container').hover(
                     function(event){
                         classes = $(this).attr("class").split(' ');
@@ -158,13 +205,11 @@ $(function(){
         $(".photo-container").remove();
     };
 
-    var clear_search = function(){
-        console.debug("clearing!");
-        remove_all_pics();
+    var reset_shown_indicies_array = function(){
         for(var i=0;i<source_data.length;i++){shown_indicies[i]=[i];}
-        show_photos();
-        return false;//prevent repetitive submission. No idea why a BUTTON submits too...
-    };
+    }
+
+ 
 
     /////MAIN/////////
 
@@ -191,19 +236,45 @@ $(function(){
         }
     });//$("#photo-screen").mousemove
 
-    //search form behaviour on both Enter and search button click
-    $("#search-form").submit(function(event){
-        console.debug($("#search-bar").val());//debug
-        // $("#search-bar").val("Doesn't work yet!");//debug
-        // console.debug(shown_indicies);//debug
-        // console.debug("search by " + $("#search-by-menu").val());
-        // console.debug("search by " + $("#search-by-menu option:selected").text());
-        var search_by = $("#search-by-menu").val();
-        var search_query = $("#search-bar").val().toLowerCase();
-        console.debug("search by " + search_by);
+
+    //////////////////
+    //////FILTERING-RELATED STUFF
+    /////////////////
+
+    $("#search-bar").hover(function(event){
+        $("#info-box").html(SEARCH_BAR_HELP);
+        $("#info-box").css({"opacity": "1"});
+    },
+    function(event){
+        $("#info-box").css({"opacity": "0"});
+    });
+
+    var filter_by_country = function(event){
+        //don't apply filter if all countries are selected
+        if("all" == $("#country-menu").val()){return;}
 
         var found = [];//indicies of found elements
-        for(var index=0;index<source_data.length;index++){
+        for(var j=0;j<shown_indicies.length;j++){
+            var index = shown_indicies[j];
+            if(source_data[index]["CountryCode"] == $("#country-menu").val())
+            {
+                found.push(index);
+            }
+        }//for
+        shown_indicies = found;
+    };
+
+    var filter_by_search = function(event){
+        var search_by = $("#search-by-menu").val();
+        var search_query = $("#search-bar").val().toLowerCase();
+
+        // skip this filter if nothing is written in search
+        if(search_query == "")return;
+
+        var found = [];//indicies of found elements
+        // for(var index=0;index<source_data.length;index++){
+        for(var j=0;j<shown_indicies.length;j++){
+            var index = shown_indicies[j];
             var source = source_data[index][search_by];
             if(typeof source != "string"){source ="";}
 
@@ -224,33 +295,29 @@ $(function(){
                 }
             }
         }//for
-        console.debug(found);//debug
 
-        if(found.length > 0)
-        {
-            remove_all_pics();
-            shown_indicies = found;
-            show_photos();
-        }
-        else
-        {
-            //nothing found
-            //TODO: blink with red if nothing found
-            $("#search-bar").stop(true,true);
-            $("#search-bar").css({"background-color":"red"});
-            $("#search-bar").animate({"background-color":"#FFFFFF"}, 2000, "linear");
-        }
+        shown_indicies = found;
 
-    });//$("#search-form").submit(function(event
+    };//filter_by_search
 
+    var clear_search = function(event){
+        console.debug("clearing!");
+        $("#search-bar").val("");
+        master_filter();
+        return false;//prevent repetitive submission. No idea why a BUTTON submits too...
+    };
+
+    var master_filter = function(event){
+        remove_all_pics();
+        reset_shown_indicies_array();
+        filter_by_country(event);
+        filter_by_search(event);
+        show_photos();
+    };
+
+    //setting the master to filter elements
+    $("#country-menu").change(master_filter);
+    $("#search-form").submit(master_filter);//search form behaviour on both Enter and search button click
     $("#clear-search-button").click(clear_search);
-
-    $("#search-bar").hover(function(event){
-        $("#info-box").html(SEARCH_BAR_HELP);
-        $("#info-box").css({"opacity": "1"});
-    },
-    function(event){
-        $("#info-box").css({"opacity": "0"});
-    });
 
 });//$

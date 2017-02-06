@@ -14,6 +14,10 @@ header{
 	border-color: #AAAAAA;
 }
 
+#country-menu{
+	float: right;
+}
+
 #search-form{
 	float: right;
 }
