@@ -8,7 +8,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 3, 7)
+VERSION = (0, 3, 8)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -34,20 +34,14 @@ def extract_data():
 							headers={
 								'Referer': 'https://www.nordicfuzzcon.org/Registration/FursuitList',
 								'Host': 'www.nordicfuzzcon.org',
-
 							})
 	response_content = response.content.decode("utf-8")
-
-	# print("response", response)#debug
 
 	parsed_source = json.loads(response_content)["Data"]["GetFursuits"]
 
 	for entry in parsed_source:
-		#add imagefilenames
+		# add image filenames
 		entry["ImageFilename"] = path.basename(urlparse(entry["ImagePath"]).path)
-
-
-	# print("parsed_source", parsed_source)#debug
 
 	# Download images
 	threads = []
@@ -55,7 +49,6 @@ def extract_data():
 		image_filename = path.basename(urlparse(image_url).path)
 		full_path_to_create = path.join(TEMP_IMAGES_FOLDER, image_filename)
 		if not path.isfile(full_path_to_create):
-			# print("Downloading!")#debug
 			t = Thread(target=urllib.request.urlretrieve,
 								args=(image_url, full_path_to_create))
 			threads.append(t)
@@ -70,8 +63,8 @@ def extract_data():
 def index():
 	# version = "v." + ".".join(map(str, VERSION))
 	return render_template('index.html',
-						   # context={"VERSION": version}
-						   )
+						# context={"VERSION": version}
+						)
 
 
 @application.route('/get_data')
@@ -87,5 +80,4 @@ if __name__ == '__main__':
 			symlink(TEMP_IMAGES_FOLDER, path.join(STATIC_FOLDER, "img"), target_is_directory=True)
 		except FileExistsError:
 			pass  # do nothing
-	# print(SOURCE_DATA)#debug
 	application.run(debug=False, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)

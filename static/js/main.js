@@ -125,6 +125,9 @@ $(function(){
                         }
                         /*end exit function*/});
         }//for
+
+        $("#fursuit-count").text(shown_indicies.length);
+
     };//show_photos
 
     var dim_all_pics = function(){

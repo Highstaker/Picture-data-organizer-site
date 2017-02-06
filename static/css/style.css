@@ -98,7 +98,7 @@ header{
 }
 
 footer{
-	text-align: right;
+	/*text-align: right;*/
 	width: 100%;	
 	position: fixed;
 	height: 20px;
@@ -107,3 +107,11 @@ footer{
 	background: linear-gradient(to right, black, #ff0000);
 }
 
+#fursuit-count-line{
+	color: #FFFFFF;
+	float: left;
+}
+
+#signature{
+	float: right;
+}
