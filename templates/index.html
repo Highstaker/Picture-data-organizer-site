@@ -19,55 +19,65 @@
 	<!--TODO: sorting -->
 	<!--TODO: use bootstrap-->
 
-
-	<!-- collapsable toolbar as here https://jsfiddle.net/7v9tcc2m/5/-->
-
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
-			<div class="navbar-header">
 				<span class="navbar-brand">Fursuits</span>
-			</div>
+
+			<button class="navbar-toggle navbar-right" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 
 
-			<form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
+			<div id="navbar-collapse" class="collapse navbar-collapse">
 
-				<div class="col-xs-4">
-					<select id="search-by-menu" class="form-control">
-						<option value="FursuitNickName">Character name</option>
-						<option value="FursuitWearer">Wearer name</option>
-						<option value="FursuitSpecies">Species</option>
-					</select>
-				</div>
+				<ul class="nav navbar-nav">
+					<li>
+						<form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
 
-				<div class="col-xs-4">
-					<input type="search" id="search-bar" placeholder="Search" class="form-control" />
-				</div>
+							<div class="col-xs-5">
+								<select id="search-by-menu" class="form-control">
+									<option value="FursuitNickName">Character name</option>
+									<option value="FursuitWearer">Wearer name</option>
+									<option value="FursuitSpecies">Species</option>
+								</select>
+							</div>
 
-				<button id="search-button" type="submit" value="Search!" class="btn btn-default">
-					<i class="glyphicon glyphicon-search"></i>
-				</button>
+							<div class="col-xs-4">
+								<input type="search" id="search-bar" placeholder="Search" class="form-control" />
+							</div>
 
-				<button id="clear-search-button" class="btn btn-danger">
-					<span class="glyphicon glyphicon-remove"></span>
-				</button>
+							<button id="search-button" type="submit" value="Search!" class="btn btn-default">
+								<i class="glyphicon glyphicon-search"></i>
+							</button>
 
-			</form>
+							<button id="clear-search-button" class="btn btn-danger">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
 
-
-			<select id="country-menu" class="form-control">
-				<option value="all" class="country-option">All countries</option>
-			</select>
-
-
-			<form id="gender-form" class="form-horizontal navbar-right">
-				<label>Gender:</label>
-				<label class="checkbox-inline" >
-					<input autocomplete="off" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
-					<label class="checkbox-inline" >
-						<input autocomplete="off" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
-						<label class="checkbox-inline" >
-							<input autocomplete="off" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
 						</form>
+					</li>
+					<li>
+						<select id="country-menu" class="form-control">
+							<option value="all" class="country-option">All countries</option>
+						</select>
+					</li>
+					<li>
+						<form id="gender-form" class="form-horizontal navbar-right">
+							<label>Gender:</label>
+							<label class="checkbox-inline" >
+								<input autocomplete="off" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
+								<label class="checkbox-inline" >
+									<input autocomplete="off" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
+									<label class="checkbox-inline" >
+										<input autocomplete="off" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
+									</form>
+								</li>
+							</ul>
+
+						</div>
 
 					</div>
 				</nav>
@@ -81,7 +91,7 @@
 				</div>
 
 
-<!-- TODO: minimize footer height -->
+				<!-- TODO: minimize footer height -->
 
 				<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
 					<div class="container-fluid">
