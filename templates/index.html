@@ -2,49 +2,96 @@
 <html>
 <head>
 	<title>NFC 2017 fursuiters</title>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
 	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script> -->
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<!--TODO: filter by countries -->
-	<header>
-		Fursuits
-		<form id="search-form" onsubmit="return false">
-			Search by:
-			<select id="search-by-menu">
-				<option value="FursuitNickName">Character name</option>
-				<option value="FursuitWearer">Wearer name</option>
-				<option value="FursuitSpecies">Species</option>
+	<!--TODO: sorting -->
+	<!--TODO: use bootstrap-->
+
+
+	<!-- collapsable toolbar as here https://jsfiddle.net/7v9tcc2m/5/-->
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<span class="navbar-brand">Fursuits</span>
+			</div>
+
+
+			<form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
+
+				<div class="col-xs-4">
+					<select id="search-by-menu" class="form-control">
+						<option value="FursuitNickName">Character name</option>
+						<option value="FursuitWearer">Wearer name</option>
+						<option value="FursuitSpecies">Species</option>
+					</select>
+				</div>
+
+				<div class="col-xs-4">
+					<input type="search" id="search-bar" placeholder="Search" class="form-control" />
+				</div>
+
+				<button id="search-button" type="submit" value="Search!" class="btn btn-default">
+					<i class="glyphicon glyphicon-search"></i>
+				</button>
+
+				<button id="clear-search-button" class="btn btn-danger">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+
+			</form>
+
+
+			<select id="country-menu" class="form-control">
+				<option value="all" class="country-option">All countries</option>
 			</select>
-			<input type="search" id="search-bar" placeholder="Search query">
-			<input id="search-button" type="submit" value="Search!">
-			<button id="clear-search-button">Clear search!</button>
-		</form>
-		<span id="gender-form">
-			<label for="male-gender-option">M</label>
-			<input autocomplete="off" class="gender-option" type="checkbox" id="male-gender-option" checked />
-			<label for="female-gender-option">F</label>
-			<input autocomplete="off" class="gender-option" type="checkbox" id="female-gender-option" checked />
-			<label for="unspecified-gender-option">???</label>
-			<input autocomplete="off" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />
-		</span>
-		<select id="country-menu">
-			<option value="all" class="country-option">All countries</option>
-		</select>
-	</header>
-	<div id="photo-screen">
-		<div id="info-box">h0i!</div>
-	</div>
-	<footer>
-	<span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
-	<span id="signature">
-		Site by Omni H. Sable.
-		<a href="https://github.com/Highstaker/Picture-data-organizer-site" target="_blank">Project repo</a>
-		<span>{{VERSION}}</span>
-	</span>
-	</footer>
-</body>
-</html>
+
+
+			<form id="gender-form" class="form-horizontal navbar-right">
+				<label>Gender:</label>
+				<label class="checkbox-inline" >
+					<input autocomplete="off" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
+					<label class="checkbox-inline" >
+						<input autocomplete="off" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
+						<label class="checkbox-inline" >
+							<input autocomplete="off" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
+						</form>
+
+					</div>
+				</nav>
+
+
+
+
+
+				<div class="container-fluid" id="photo-screen">
+					<div id="info-box">h0i!</div>
+				</div>
+
+
+<!-- TODO: minimize footer height -->
+
+				<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
+					<div class="container-fluid">
+						<span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
+						<span id="signature">
+							Site by Omni H. Sable.
+							<a href="https://github.com/Highstaker/Picture-data-organizer-site" target="_blank">Project repo</a>
+							<span id="version">{{VERSION}}</span>
+						</span>
+					</div>
+				</div>
+			</body>
+			</html>

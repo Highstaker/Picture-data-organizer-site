@@ -3,27 +3,27 @@ body{
 	font-family: sans-serif;
 }
 
-header{
-	position: fixed;
-	height: 30px;	
-	width: 100%;	
-
-	background-color: blue;
-	color: white;
-	border-width: 3px;
-	border-color: #AAAAAA;
-}
 
 #country-menu{
-	float: right;
+	/*float: right;*/
 }
 
 #search-form{
-	float: right;
+	/*float: right;*/
+}
+
+#search-form > div{
+	/*removes spaces between inputs in search form*/
+	padding-left: 0;
+	padding-right: 0;
 }
 
 #gender-form{
-	float: right;
+	/*float: right;*/
+}
+
+#gender-form > label{
+	padding-top: 0;
 }
 
 #search-bar{
@@ -34,12 +34,19 @@ header{
 	background: purple;
     background: linear-gradient(#00ffc4, purple);
 
-	position: fixed;
+    margin-top: 100px;
+    margin-bottom : 100px;
+
+    padding-left: 0px;
+    padding-right: 0px;
+
+
+/*	position: fixed;
 	width: 100%;
 	top: 30px;
 	bottom: 20px;
 	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow-x: hidden;*/
 }
 
 #info-box{
@@ -95,9 +102,9 @@ header{
 	background-position: center center !important;
 }
 
-.dimmed-pic{
+/*.dimmed-pic{
 	box-shadow: 30px 30px 150px black inset, -30px -30px 150px black inset;
-}
+}*/
 
 .flag-thumbnail{
 	position: absolute;
@@ -105,21 +112,23 @@ header{
 	right: 0;
 }
 
-footer{
+#footer{
 	/*text-align: right;*/
-	width: 100%;	
+
+/*	width: 100%;	
 	position: fixed;
 	height: 20px;
-	bottom:0%;
+	bottom:0%;*/
+
 	background: #ff0000;
 	background: linear-gradient(to right, black, #ff0000);
 }
 
 #fursuit-count-line{
 	color: #FFFFFF;
-	float: left;
+	/*float: left;*/
 }
 
 #signature{
-	float: right;
+	/*float: right;*/
 }
