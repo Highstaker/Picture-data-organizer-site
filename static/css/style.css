@@ -8,6 +8,10 @@ body{
 	height: 100%;
 }
 
+#header{
+	margin-bottom: 0;
+}
+
 #country-menu{
 
 }
@@ -42,8 +46,8 @@ body{
 
     min-height: 100%;
 
-    margin-top: 100px;
-    margin-bottom : 100px;
+    /*margin-top: 100px;*/
+    /*margin-bottom : 100px;*/
 
     padding-left: 0px;
     padding-right: 0px;

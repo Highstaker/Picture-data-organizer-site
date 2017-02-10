@@ -127,7 +127,7 @@ $(function(){
             }
 
             var img_container = $('<div>', {
-                class: 'photo-container hoi!',
+                class: 'photo-container',
                 id: pic_id_prefix+i+'-container',
                 style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");" +
                 "border-color:" + border_color + ";"
@@ -209,6 +209,15 @@ $(function(){
         for(var i=0;i<source_data.length;i++){shown_indicies[i]=[i];}
     }
 
+    var set_photoscreen_margins = function(event){
+        //sets the margins of the main screen so the header and footer wouldn't overlap it
+        var header_height = $("#header").outerHeight(true);
+        $("#photo-screen").css({"margin-top": header_height});
+
+        var footer_height = $("#footer").outerHeight(true);
+        $("#photo-screen").css({"margin-bottom": footer_height});
+    }
+
     /////MAIN/////////
 
     collect_data();//run ajax
@@ -234,6 +243,9 @@ $(function(){
         }
     });//$("#photo-screen").mousemove
 
+    set_photoscreen_margins();
+    $(window).resize(set_photoscreen_margins);
+    $("button[class*='navbar-toggle']").click(function(){setTimeout(set_photoscreen_margins,1000);});//bodging! not sure how to make it run after the opening of dropdown panel
 
     //////////////////
     //////FILTERING-RELATED STUFF
