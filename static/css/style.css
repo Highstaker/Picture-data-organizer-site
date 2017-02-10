@@ -3,13 +3,12 @@ body{
 	font-family: sans-serif;
 }
 
-
 #country-menu{
-	/*float: right;*/
+
 }
 
 #search-form{
-	/*float: right;*/
+
 }
 
 #search-form > div{
@@ -102,10 +101,6 @@ body{
 	background-position: center center !important;
 }
 
-/*.dimmed-pic{
-	box-shadow: 30px 30px 150px black inset, -30px -30px 150px black inset;
-}*/
-
 .flag-thumbnail{
 	position: absolute;
 	bottom: 0;
@@ -113,12 +108,8 @@ body{
 }
 
 #footer{
-	/*text-align: right;*/
-
-/*	width: 100%;	
-	position: fixed;
-	height: 20px;
-	bottom:0%;*/
+	min-height: 20px;
+	/*max-height: 40px;*/
 
 	background: #ff0000;
 	background: linear-gradient(to right, black, #ff0000);
@@ -126,9 +117,19 @@ body{
 
 #fursuit-count-line{
 	color: #FFFFFF;
-	/*float: left;*/
 }
 
 #signature{
-	/*float: right;*/
+}
+
+@keyframes link-blinker {
+    from {color: white;}
+    to {color: black;}
+}
+#repo-link{
+	animation-name: link-blinker;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: linear;
 }

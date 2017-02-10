@@ -17,7 +17,10 @@
 </head>
 <body>
 	<!--TODO: sorting -->
+
 	<!--TODO: use bootstrap-->
+
+	<!-- TODO: make main area margins dynamic, depending on height of header and footer -->
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -91,14 +94,12 @@
 				</div>
 
 
-				<!-- TODO: minimize footer height -->
-
 				<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
 					<div class="container-fluid">
 						<span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
-						<span id="signature">
+						<span id="signature" class="navbar-right">
 							Site by Omni H. Sable.
-							<a href="https://github.com/Highstaker/Picture-data-organizer-site" target="_blank">Project repo</a>
+							<a id="repo-link" href="https://github.com/Highstaker/Picture-data-organizer-site" target="_blank">Project repo</a>
 							<span id="version">{{VERSION}}</span>
 						</span>
 					</div>
