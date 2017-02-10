@@ -6,10 +6,11 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
-	<!-- <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script> -->
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>-->
 
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 
@@ -27,7 +28,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top" id="header">
 		<div class="container-fluid">
 
-				<span class="navbar-brand">Fursuits</span>
+			<span class="navbar-brand">Fursuits</span>
 
 			<button class="navbar-toggle navbar-right" type="button" data-toggle="collapse" data-target="#navbar-collapse">
 				<span class="sr-only">Toggle navigation</span>
@@ -104,6 +105,14 @@
 							<span id="version">{{VERSION}}</span>
 						</span>
 					</div>
+
+
 				</div>
-			</body>
-			</html>
+
+				<btn id="back-to-top-button" href="#" class="back-to-top btn btn-primary btn-lg"
+				role="button" title="Back to Top" data-toggle="tooltip" data-placement="top">
+				<span class="glyphicon glyphicon-chevron-up"></span>
+			</btn>
+
+		</body>
+		</html>

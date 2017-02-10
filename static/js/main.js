@@ -5,6 +5,8 @@ const SEARCH_BAR_HELP = "<p>Input the query you want to send, fully or partially
 $(function(){
     console.log("ready!");
 
+//$( document ).tooltip();
+
     var source_data;
     // indexes to be shown, in order of showing. Will be required for filtering and sorting
     var shown_indicies = [];
@@ -246,6 +248,28 @@ $(function(){
     set_photoscreen_margins();
     $(window).resize(set_photoscreen_margins);
     $("button[class*='navbar-toggle']").click(function(){setTimeout(set_photoscreen_margins,1000);});//bodging! not sure how to make it run after the opening of dropdown panel
+
+    $(window).scroll(function(){
+        //show/hide back-to-top button
+        //http://www.2my4edge.com/2015/03/responsive-back-to-top-using-bootstrap.html
+            if ($(this).scrollTop() > 250) 
+            {
+                $('#back-to-top-button').fadeIn();
+            } 
+            else 
+            {
+                $('#back-to-top-button').fadeOut();
+            }
+    });
+
+    $('#back-to-top-button').click(function(){
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    //hide in the beginning
+    $('#back-to-top-button').css({"display": "none"});
 
     //////////////////
     //////FILTERING-RELATED STUFF

@@ -141,3 +141,9 @@ body{
 	animation-direction: alternate;
 	animation-timing-function: linear;
 }
+
+.back-to-top {
+	position: fixed;
+	bottom: 50px;
+	right: 20px;
+}
