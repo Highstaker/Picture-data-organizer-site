@@ -3,15 +3,22 @@
 <head>
 	<title>NFC 2017 fursuiters</title>
 	<meta charset="utf-8">
+	<!--My styles-->
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+	<!--jquery-->
 	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
 
+	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>-->
+	<!--jquery UI-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
 
+	<!-- My main script -->
 	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +29,6 @@
 	<!--TODO: use bootstrap-->
 
 	<!-- TODO: fix infobox sizing and positioning -->
-	<!-- TODO: to top button -->
 	<!-- TODO: make a sophisticated system that resizes images so no "margins" are left on resize (if width%150 != 0) -->
 
 	<nav class="navbar navbar-default navbar-fixed-top" id="header">
@@ -39,12 +45,12 @@
 
 
 			<div id="navbar-collapse" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
+				<ul id="filters-list" class="nav navbar-nav navbar-right">
 					<li>
 						<form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
 
 							<div class="col-xs-5">
-								<select id="search-by-menu" class="form-control">
+								<select id="search-by-menu" class="form-control" title="Search by">
 									<option value="FursuitNickName">Character name</option>
 									<option value="FursuitWearer">Wearer name</option>
 									<option value="FursuitSpecies">Species</option>
@@ -59,14 +65,14 @@
 								<i class="glyphicon glyphicon-search"></i>
 							</button>
 
-							<button id="clear-search-button" class="btn btn-danger">
+							<button id="clear-search-button" class="btn btn-danger" title="Clear search">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 
 						</form>
 					</li>
 					<li>
-						<select id="country-menu" class="form-control">
+						<select id="country-menu" class="form-control" title="Show people from the specified country only">
 							<option value="all" class="country-option">All countries</option>
 						</select>
 					</li>
@@ -74,11 +80,11 @@
 						<form id="gender-form" class="form-horizontal navbar-right">
 							<label>Gender:</label>
 							<label class="checkbox-inline" >
-								<input autocomplete="off" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
+								<input autocomplete="off" title="Show all males" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
 								<label class="checkbox-inline" >
-									<input autocomplete="off" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
+									<input autocomplete="off" title="Show all females" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
 									<label class="checkbox-inline" >
-										<input autocomplete="off" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
+										<input autocomplete="off" title="Show all people with unspecified gender" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
 									</form>
 								</li>
 							</ul>
@@ -113,6 +119,10 @@
 				role="button" title="Back to Top" data-toggle="tooltip" data-placement="top">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</btn>
+
+			<script>
+				$( document ).tooltip();
+			</script>
 
 		</body>
 		</html>

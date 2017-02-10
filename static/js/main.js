@@ -1,6 +1,6 @@
-const SEARCH_BAR_HELP = "<p>Input the query you want to send, fully or partially.</p>" +
-"<p>If you want to search for fursuiters that have the selected criteria unfilled, type ^$</p>"+
-"<p>If you are familiar with REGEX, you can use it here.</p>";
+const SEARCH_BAR_HELP = "Input the query you want to send, fully or partially. " +
+"If you are familiar with REGEX, you can use it here. " +
+"If you want to search for fursuiters that have the selected criterion unfilled, type ^$";
 
 $(function(){
     console.log("ready!");
@@ -275,13 +275,15 @@ $(function(){
     //////FILTERING-RELATED STUFF
     /////////////////
 
-    $("#search-bar").hover(function(event){
-        $("#info-box").html(SEARCH_BAR_HELP);
-        $("#info-box").css({"opacity": "1"});
-    },
-    function(event){
-        $("#info-box").css({"opacity": "0"});
-    });
+    // $("#search-bar").hover(function(event){
+    //     $("#info-box").html(SEARCH_BAR_HELP);
+    //     $("#info-box").css({"opacity": "1"});
+    // },
+    // function(event){
+    //     $("#info-box").css({"opacity": "0"});
+    // });
+
+    $("#search-bar").attr({"title": SEARCH_BAR_HELP});
 
     var filter_by_country = function(event){
         //don't apply filter if all countries are selected
