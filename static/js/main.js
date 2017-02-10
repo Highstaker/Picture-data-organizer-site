@@ -127,7 +127,7 @@ $(function(){
             }
 
             var img_container = $('<div>', {
-                class: 'photo-container',
+                class: 'photo-container hoi!',
                 id: pic_id_prefix+i+'-container',
                 style: 'background: url(' + "img/"+source_data[i]["ImageFilename"] + ");" +
                 "border-color:" + border_color + ";"
