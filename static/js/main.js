@@ -2,10 +2,10 @@ const SEARCH_BAR_HELP = "Input the query you want to send, fully or partially. "
 "If you are familiar with REGEX, you can use it here. " +
 "If you want to search for fursuiters that have the selected criterion unfilled, type ^$";
 
+const INITIAL_CONTAINER_SIZE = 150;//pixels
+
 $(function(){
     console.log("ready!");
-
-//$( document ).tooltip();
 
     var source_data;
     // indexes to be shown, in order of showing. Will be required for filtering and sorting
@@ -104,6 +104,7 @@ $(function(){
                 reset_shown_indicies_array();
                 set_countries_menu();
                 show_photos();
+                reinitialize_photoscreen();
             }//success
         });//ajax
     };//collect_data
@@ -220,6 +221,15 @@ $(function(){
         $("#photo-screen").css({"margin-bottom": footer_height});
     }
 
+    var resize_photocontainers = function(event){
+        var window_width = $(window).width();
+
+        var n_containers = Math.floor(window_width/INITIAL_CONTAINER_SIZE) + 1;
+        var container_size = Math.floor(window_width/n_containers)
+
+        $(".photo-container").css({"height": container_size, "width": container_size});
+    }
+
     /////MAIN/////////
 
     collect_data();//run ajax
@@ -245,8 +255,12 @@ $(function(){
         }
     });//$("#photo-screen").mousemove
 
-    set_photoscreen_margins();
-    $(window).resize(set_photoscreen_margins);
+    var reinitialize_photoscreen = function(event){
+        set_photoscreen_margins(event);
+        resize_photocontainers(event);
+    };
+
+    $(window).resize(reinitialize_photoscreen);//resize
     $("button[class*='navbar-toggle']").click(function(){setTimeout(set_photoscreen_margins,1000);});//bodging! not sure how to make it run after the opening of dropdown panel
 
     $(window).scroll(function(){
@@ -274,14 +288,6 @@ $(function(){
     //////////////////
     //////FILTERING-RELATED STUFF
     /////////////////
-
-    // $("#search-bar").hover(function(event){
-    //     $("#info-box").html(SEARCH_BAR_HELP);
-    //     $("#info-box").css({"opacity": "1"});
-    // },
-    // function(event){
-    //     $("#info-box").css({"opacity": "0"});
-    // });
 
     $("#search-bar").attr({"title": SEARCH_BAR_HELP});
 
