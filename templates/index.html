@@ -1,133 +1,116 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>NFC 2017 fursuiters</title>
-	<meta charset="utf-8">
-	<!--My styles-->
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>NFC 2017 fursuiters</title>
+    <meta charset="utf-8">
+    <!--My styles-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/flags.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
-	<!--jquery-->
-	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
+    <!--jquery-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.1.0.min.js') }}"></script>
 
-	<!-- Bootstrap -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-	<!--jquery UI-->
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.css') }}">
-	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
+    <!--jquery UI-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
 
-	<!-- My main script -->
-	<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- My main script -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<!--TODO: sorting -->
+<!--TODO: sorting -->
+<nav class="navbar navbar-default navbar-fixed-top" id="header">
+    <div class="container-fluid">
 
-	<!--TODO: use bootstrap-->
+        <span class="navbar-brand">Fursuits</span>
 
-	<!-- TODO: fix infobox sizing and positioning -->
+        <button class="navbar-toggle navbar-right" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <div id="navbar-collapse" class="collapse navbar-collapse">
+            <ul id="filters-list" class="nav navbar-nav navbar-right">
+                <li>
+                    <form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
+                        <div class="col-xs-5">
+                            <select id="search-by-menu" class="form-control" title="Search by">
+                                <option value="FursuitNickName">Character name</option>
+                                <option value="FursuitWearer">Wearer name</option>
+                                <option value="FursuitSpecies">Species</option>
+                            </select>
+                        </div>
 
-	<nav class="navbar navbar-default navbar-fixed-top" id="header">
-		<div class="container-fluid">
+                        <div class="col-xs-4">
+                            <input type="search" id="search-bar" placeholder="Search" class="form-control"/>
+                        </div>
 
-			<span class="navbar-brand">Fursuits</span>
+                        <button id="search-button" type="submit" value="Search!" class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
 
-			<button class="navbar-toggle navbar-right" type="button" data-toggle="collapse" data-target="#navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
+                        <button id="clear-search-button" class="btn btn-danger" title="Clear search">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
 
+                    </form>
+                </li>
+                <li>
+                    <select id="country-menu" class="form-control" title="Show people from the specified country only">
+                        <option value="all" class="country-option">All countries</option>
+                    </select>
+                </li>
+                <li>
+                    <form id="gender-form" class="form-horizontal navbar-right">
+                        <label>Gender:</label>
+                        <label class="checkbox-inline">
+                            <input autocomplete="off" title="Show all males" class="gender-option" type="checkbox"
+                                   id="male-gender-option" checked/>M</label>
+                        <label class="checkbox-inline">
+                            <input autocomplete="off" title="Show all females" class="gender-option" type="checkbox"
+                                   id="female-gender-option" checked/>F</label>
+                        <label class="checkbox-inline">
+                            <input autocomplete="off" title="Show all people with unspecified gender"
+                                   class="gender-option" type="checkbox" id="unspecified-gender-option"
+                                   checked/>???</label>
+                    </form>
+                </li>
+            </ul>
 
-			<div id="navbar-collapse" class="collapse navbar-collapse">
-				<ul id="filters-list" class="nav navbar-nav navbar-right">
-					<li>
-						<form class="form-horizontal navbar-right" id="search-form" onsubmit="return false">
+        </div>
 
-							<div class="col-xs-5">
-								<select id="search-by-menu" class="form-control" title="Search by">
-									<option value="FursuitNickName">Character name</option>
-									<option value="FursuitWearer">Wearer name</option>
-									<option value="FursuitSpecies">Species</option>
-								</select>
-							</div>
+    </div>
+</nav>
 
-							<div class="col-xs-4">
-								<input type="search" id="search-bar" placeholder="Search" class="form-control" />
-							</div>
+<div class="container-fluid" id="photo-screen">
+    <div id="info-box">h0i!</div>
+</div>
 
-							<button id="search-button" type="submit" value="Search!" class="btn btn-default">
-								<i class="glyphicon glyphicon-search"></i>
-							</button>
-
-							<button id="clear-search-button" class="btn btn-danger" title="Clear search">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-
-						</form>
-					</li>
-					<li>
-						<select id="country-menu" class="form-control" title="Show people from the specified country only">
-							<option value="all" class="country-option">All countries</option>
-						</select>
-					</li>
-					<li>
-						<form id="gender-form" class="form-horizontal navbar-right">
-							<label>Gender:</label>
-							<label class="checkbox-inline" >
-								<input autocomplete="off" title="Show all males" class="gender-option" type="checkbox" id="male-gender-option" checked />M</label>
-								<label class="checkbox-inline" >
-									<input autocomplete="off" title="Show all females" class="gender-option" type="checkbox" id="female-gender-option" checked />F</label>
-									<label class="checkbox-inline" >
-										<input autocomplete="off" title="Show all people with unspecified gender" class="gender-option" type="checkbox" id="unspecified-gender-option" checked />???</label>
-									</form>
-								</li>
-							</ul>
-
-						</div>
-
-					</div>
-				</nav>
-
-
-
-
-				<div class="container-fluid" id="photo-screen">
-					<div id="info-box">h0i!</div>
-				</div>
-
-
-				<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
-					<div class="container-fluid">
-						<span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
+<div class="navbar navbar-default navbar-fixed-bottom" id="footer">
+    <div class="container-fluid">
+        <span id="fursuit-count-line">Fursuits shown: <span id="fursuit-count"></span></span>
 						<span id="signature" class="navbar-right">
 							Site by Omni H. Sable.
-							<a id="repo-link" href="https://github.com/Highstaker/Picture-data-organizer-site" target="_blank">Project repo</a>
+							<a id="repo-link" href="https://github.com/Highstaker/Picture-data-organizer-site"
+                               target="_blank">Project repo</a>
 							<span id="version">{{VERSION}}</span>
 						</span>
-					</div>
+    </div>
+</div>
 
+<btn id="back-to-top-button" href="#" class="back-to-top btn btn-primary btn-lg"
+     role="button" title="Back to Top" data-toggle="tooltip" data-placement="top">
+    <span class="glyphicon glyphicon-chevron-up"></span></btn>
+<div id="info-dialog" style="display: none;">
+    <p></p>
+</div>
 
-				</div>
-
-				<btn id="back-to-top-button" href="#" class="back-to-top btn btn-primary btn-lg"
-				role="button" title="Back to Top" data-toggle="tooltip" data-placement="top">
-				<span class="glyphicon glyphicon-chevron-up"></span>
-			</btn>
-
-			<script>
-				// //jquery UI initializations
-				// $( document ).tooltip();
-				// $("#info-dialog").dialog();
-			</script>
-
-			<div id="info-dialog" title="" style="display: none;">
-			<p></p>
-			</div>
-
-		</body>
-		</html>
+</body>
+</html>
