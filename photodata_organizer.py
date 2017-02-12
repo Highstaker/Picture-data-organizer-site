@@ -1,6 +1,5 @@
 from os import path, makedirs, symlink
 import json
-
 import requests
 import urllib.request
 from urllib.parse import urlparse
@@ -8,7 +7,7 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 5, 7)
+VERSION = (0, 5, 8)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
@@ -25,8 +24,11 @@ STATIC_FOLDER = path.join(SCRIPT_FOLDER, 'static')
 
 application = Flask(__name__, static_url_path='', static_folder=STATIC_FOLDER)
 
+#todo: read footer and header from separate file
 
 def extract_data():
+	# todo: move this to another file
+
 	makedirs(TEMP_IMAGES_FOLDER, exist_ok=True)
 
 	response = requests.get(SOURCE_URL,
@@ -84,3 +86,6 @@ if __name__ == '__main__':
 		except FileExistsError:
 			pass  # do nothing
 	application.run(debug=False, host=HOST_NAME, port=HOST_PORT, threaded=True, use_reloader=False)
+
+#todo: configure with uwsgi and nginx
+#TODO: data saving

@@ -7,6 +7,23 @@ const INITIAL_CONTAINER_SIZE = 150;//pixels
 $(function(){
     console.log("ready!");
 
+    //jquery UI initializations
+    $( document ).tooltip();
+    $("#info-dialog").dialog();
+    $(".ui-dialog-titlebar").hide();
+    $("#info-dialog").dialog('close');
+    $("#info-dialog").click(function(event){$("#info-dialog").dialog('close');});
+
+    var is_mobile_browser = function(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
     var source_data;
     // indexes to be shown, in order of showing. Will be required for filtering and sorting
     var shown_indicies = [];
@@ -144,7 +161,10 @@ $(function(){
             img_container.appendTo('#photo-screen');
 
             //setting hover behaviour for images
-            $("#"+pic_id_prefix+i+'-container').hover(
+            if(!is_mobile_browser())
+            {  
+                //on desktop browsers show the custom tooltip on hover
+                $("#"+pic_id_prefix+i+'-container').hover(
                     function(event){
                         classes = $(this).attr("class").split(' ');
                         // console.debug(classes);
@@ -163,17 +183,29 @@ $(function(){
                                 +" inset"
                             });
                         }//if
-                            
+
                         },//end enter function
-                    function(event){
-                        classes = $(this).attr("class").split(' ');
+                        function(event){
+                            classes = $(this).attr("class").split(' ');
 
                         //sets what to do when a pic is not hovered over anymore
                         $("#info-box").css({"opacity": "0"});
                         if(classes.indexOf("dimmed-pic") == -1){
                             $(this).css({"box-shadow": "none"});//remove shadow
                         }
-                        /*end exit function*/});
+                    /*end exit function*/});
+                }//if(!is_mobile_browser())
+
+                else
+                {
+                    //it's a mobile browser, show a dilaog instead
+                    $("#"+pic_id_prefix+i+'-container').click(function(event){
+                        $("#info-dialog").html(get_info(this.id));
+                        $("#info-dialog").dialog('close');
+                        $("#info-dialog").dialog('open');
+                    });//click
+                }//else
+
         }//for
 
         $("#fursuit-count").text(shown_indicies.length);
@@ -234,26 +266,35 @@ $(function(){
 
     collect_data();//run ajax
 
-    $("#photo-screen").mousemove(function(event){
+    if(!is_mobile_browser())
+    {  
+        //no info box in mobile browsers, so we won't need the movement of it depending on mouse position
+        $("#photo-screen").mousemove(function(event){
         //moves infobox so it wouldn't get in a way depending on mouse location
-    	var mouseX = event.pageX;
-    	var mouseY = event.pageY;
+        var mouseX = event.clientX;
+        var mouseY = event.clientY;
         var window_width = $(window).width();
-    	var window_height = $(window).height();
-    	var middleX = window_width / 2;
+        var window_height = $(window).height();
+        var middleX = window_width / 2;
         var middleY = window_height / 2;
+        var infobox_height = $("#info-box").outerHeight(true);
+        var infobox_position_top = document.getElementById("info-box").getBoundingClientRect()["top"];
+        // console.debug(mouseX, mouseY, window_width, window_height, infobox_height, infobox_position_top);
 
-        if(mouseY < middleY){
-    	if(mouseX < middleX)
-	    	{
-	    		$("#info-box").css({"right": "0"});
-	    	}
-	    	else
-	    	{
-	    		$("#info-box").css({"right": "auto"});
-	    	}
-        }
-    });//$("#photo-screen").mousemove
+
+        if(mouseY < (infobox_position_top + infobox_height) || mouseY < middleY)
+            {
+               if(mouseX < middleX)
+                 {
+                    $("#info-box").css({"right": "0"});
+                 }
+                 else
+                 {
+                    $("#info-box").css({"right": "auto"});
+                 }
+             }
+        });//$("#photo-screen").mousemove
+    }//if(!is_mobile_browser())
 
     var reinitialize_photoscreen = function(event){
         set_photoscreen_margins(event);
