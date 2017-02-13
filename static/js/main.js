@@ -208,6 +208,8 @@ $(function(){
 
 		}//for
 
+		resize_photocontainers();
+
 		$("#fursuit-count").text(shown_indicies.length);
 
 	};//show_photos
@@ -221,7 +223,7 @@ $(function(){
 		for(var i=0;i<source_data.length;i++){shown_indicies[i]=[i];}
 	};
 
-var set_photoscreen_margins = function(){
+	var set_photoscreen_margins = function(){
 		//sets the margins of the main screen so the header and footer wouldn't overlap it
 		var header_height = $("#header").outerHeight(true);
 		s_photo_screen.css({"margin-top": header_height});
