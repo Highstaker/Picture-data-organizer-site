@@ -208,7 +208,7 @@ $(function(){
 
 		}//for
 
-		resize_photocontainers();
+		reinitialize_photoscreen();
 
 		$("#fursuit-count").text(shown_indicies.length);
 
