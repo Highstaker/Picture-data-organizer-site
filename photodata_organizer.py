@@ -7,12 +7,14 @@ from threading import Thread
 
 from flask import Flask, render_template
 
-VERSION = (0, 5, 10)
+from source_data_handler import SourceDataHandler
+
+VERSION = (0, 6, 0)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 
 HOST_NAME = "0.0.0.0"
-HOST_PORT = 12365
+HOST_PORT = 12364
 
 SOURCE_URL = "https://www.nordicfuzzcon.org/JavaScript/GetFursuitList?CountryId=0&OrderBy=0&OrderByDirection=0"
 
@@ -74,11 +76,13 @@ def index():
 
 @application.route('/get_data')
 def api_get_data():
-	data = json.dumps(SOURCE_DATA)
+	source_data = SourceDataHandler.get_data()
+	data = json.dumps(source_data)
 	return data
 
 if __name__ == '__main__':
-	SOURCE_DATA = extract_data()
+	# SOURCE_DATA = extract_data()
+	SourceDataHandler.assign_data(extract_data())
 	# have to put a symlink to static folder
 	if TEMP_IMAGES_FOLDER != path.join(STATIC_FOLDER, "img"):
 		try:
