@@ -17,7 +17,10 @@ $(function(){
 	s_info_dialog.dialog();
 	$(".ui-dialog-titlebar").hide();
 	s_info_dialog.dialog('close');
-	s_info_dialog.click(function(){s_info_dialog.dialog('close');});
+	s_info_dialog.click(function(){
+		s_info_dialog.dialog('close'); 
+		deselect_all();
+	});
 
 	var is_mobile_browser = function(){
 		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -110,7 +113,7 @@ $(function(){
 	var collect_data = function(){
 		//collects data from server
 		//noinspection JSUnusedLocalSymbols
-        $.ajax({
+		$.ajax({
 			url: "get_data",
 			type: "GET",
 			dataType: "Json",
@@ -163,18 +166,35 @@ $(function(){
 			//setting hover behaviour for images
 			if(!is_mobile_browser())
 			{  
+
+				$("#"+pic_id_prefix+i+'-container').click(function(){
+						deselect_all();
+						select_photo($(this));
+						s_info_box.addClass("info-box-selected");
+						s_info_box.html("<p>[SELECTED]</p>" + get_info(this.id));
+					});//click
+
+				//deselect of escape
+				$(document).keyup(function(e) {
+					 if (e.keyCode == 27){// escape key maps to keycode `27`
+					 	deselect_all();
+					 	s_info_box.removeClass("info-box-selected");
+					 }
+					});
+
 				//on desktop browsers show the custom tooltip on hover
 				$("#"+pic_id_prefix+i+'-container').hover(
 					function(){
 						var classes = $(this).attr("class").split(' ');
-						// console.debug(classes);
-						// console.debug(classes.indexOf("dimmed-pic"));
 
-						if(classes.indexOf("dimmed-pic") == -1){
 							//sets what to do when a pic is hovered
-							s_info_box.html(get_info(this.id));
-							s_info_box.css({"opacity": "1"});
+							if(!s_info_box.hasClass("info-box-selected")){
+								s_info_box.html(get_info(this.id));
+							}
+							s_info_box.addClass("info-box-visible");
 
+							$(this).addClass("hovered");//default behaviour
+							//cannot set color dynamically, will have to do it here
 							$(this).css({"box-shadow": "10px 10px 20px "
 								+ $(this).css("border-top-color")
 								+" inset"
@@ -182,17 +202,16 @@ $(function(){
 								+ $(this).css("border-top-color")
 								+" inset"
 							});
-						}//if
 
 						},//end enter function
 						function(){
 							var classes = $(this).attr("class").split(' ');
 
+							$(this).removeClass("hovered");
+							$(this).css({"box-shadow": ""});//remove dynamical shadow
+
 						//sets what to do when a pic is not hovered over anymore
-						s_info_box.css({"opacity": "0"});
-						if(classes.indexOf("dimmed-pic") == -1){
-							$(this).css({"box-shadow": "none"});//remove shadow
-						}
+						s_info_box.removeClass("info-box-visible");
 					/*end exit function*/});
 				}//if(!is_mobile_browser())
 
@@ -200,6 +219,9 @@ $(function(){
 				{
 					//it's a mobile browser, show a dilaog instead
 					$("#"+pic_id_prefix+i+'-container').click(function(){
+						deselect_all();
+						select_photo($(this));
+
 						s_info_dialog.html(get_info(this.id));
 						s_info_dialog.dialog('close');
 						s_info_dialog.dialog('open');
@@ -213,6 +235,14 @@ $(function(){
 		$("#fursuit-count").text(shown_indicies.length);
 
 	};//show_photos
+
+	var select_photo = function(obj){
+		obj.addClass("selected");
+	}
+
+	var deselect_all = function(){
+		$(".photo-container").removeClass("selected");
+	}
 
 	var remove_all_pics = function(){
 		//removes all pics from screen

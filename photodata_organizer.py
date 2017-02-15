@@ -9,7 +9,7 @@ from flask import Flask, render_template
 
 from source_data_handler import SourceDataHandler
 
-VERSION = (0, 6, 0)
+VERSION = (0, 6, 1)
 
 SCRIPT_FOLDER = path.dirname(path.realpath(__file__))
 

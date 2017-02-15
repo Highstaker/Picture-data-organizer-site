@@ -30,6 +30,12 @@ body{
 	padding-right: 0;
 }
 
+@media(min-width: 768px){
+	#gender-form{
+		margin-top: 8px;
+	}
+}
+
 #gender-form{
 
 }
@@ -55,6 +61,14 @@ body{
 
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.info-box-visible{
+	opacity: 1 !important;
+}
+
+.info-box-selected{
+	opacity: 1 !important;
 }
 
 #info-box{
@@ -98,6 +112,14 @@ body{
 	vertical-align: middle;
 }
 
+.hovered{
+	box-shadow: 10px 10px 20px white inset, -10px -10px 20px white inset;
+}
+
+.selected{
+	box-shadow: 10px 10px 20px #00FF00 inset, -10px -10px 20px #00FF00 inset !important;
+}
+
 .photo-container{
 	display: inline-block;
 
@@ -139,11 +161,11 @@ body{
     to {color: black;}
 }
 #repo-link{
-	animation-name: link-blinker;
+/*	animation-name: link-blinker;
 	animation-duration: 5s;
 	animation-iteration-count: infinite;
 	animation-direction: alternate;
-	animation-timing-function: linear;
+	animation-timing-function: linear;*/
 }
 
 .back-to-top {
